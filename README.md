@@ -127,7 +127,7 @@ CREATE TABLE notifications (
 - Spring Data JPA
 - Spring Security
 - Lombok
-- MapStruct
+- QueryDSL
 
 ### 6.3 Database
 - MySQL 8.0
