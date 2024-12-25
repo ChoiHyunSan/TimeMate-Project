@@ -26,7 +26,7 @@ public class User extends BaseEntity {
     private String password;
 
     @Column(nullable = false, length = 50)
-    private String name;
+    private String username;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Schedule> schedules = new ArrayList<>();
