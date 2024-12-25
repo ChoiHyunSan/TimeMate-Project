@@ -3,6 +3,7 @@ package com.ll.timemateproject.domain.schedule;
 import com.ll.timemateproject.domain.BaseEntity;
 import com.ll.timemateproject.domain.category.Category;
 import com.ll.timemateproject.domain.notification.Notification;
+import com.ll.timemateproject.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,10 @@ public class Schedule extends BaseEntity {
 
     @Column(nullable = false, length = 100)
     private String title;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(columnDefinition = "TEXT")
     private String description;

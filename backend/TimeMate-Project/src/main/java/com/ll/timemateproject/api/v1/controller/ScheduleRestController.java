@@ -1,12 +1,18 @@
 package com.ll.timemateproject.api.v1.controller;
 
 import com.ll.timemateproject.api.v1.dto.Result;
+import com.ll.timemateproject.api.v1.dto.request.ScheduleCreateRequest;
 import com.ll.timemateproject.api.v1.dto.request.ScheduleListRequest;
+import com.ll.timemateproject.api.v1.dto.request.ScheduleModifyRequest;
+import com.ll.timemateproject.api.v1.dto.response.ScheduleCreateResponse;
 import com.ll.timemateproject.api.v1.dto.response.ScheduleListResponse;
+import com.ll.timemateproject.api.v1.dto.response.ScheduleModifyResponse;
 import com.ll.timemateproject.domain.schedule.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
