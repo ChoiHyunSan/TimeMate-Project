@@ -7,9 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 @SpringBootApplication
 public class TimeMateProjectApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(TimeMateProjectApplication.class, args);
     }
-
 }
