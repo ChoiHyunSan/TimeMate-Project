@@ -1,6 +1,8 @@
 package com.ll.timemateproject.domain.user;
 
 import com.ll.timemateproject.api.v1.dto.response.login.SignupResponse;
+import com.ll.timemateproject.global.exception.DuplicateUsernameException;
+import com.ll.timemateproject.global.exception.PasswordMismatchException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,10 +17,10 @@ public class UserService {
 
     public SignupResponse signUp(String username, String email, String password, String passwordCheck) {
         if(userRepository.findByUsername(username).isPresent()) {
-            throw new BadCredentialsException("Username is already in use");
+            throw new DuplicateUsernameException();
         };
         if(!password.equals(passwordCheck)) {
-            throw new BadCredentialsException("Passwords do not match");
+            throw new PasswordMismatchException();
         }
 
         User user = User.builder()

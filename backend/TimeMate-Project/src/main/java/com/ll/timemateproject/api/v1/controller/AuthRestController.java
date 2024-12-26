@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthRestController {
     private final JwtProvider jwtProvider;
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
@@ -29,7 +29,6 @@ public class AuthController {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
-
         String token = jwtProvider.createToken(request.getUsername(), "ROLE_USER");
         return Result.success(new TokenResponse(token));
     }
