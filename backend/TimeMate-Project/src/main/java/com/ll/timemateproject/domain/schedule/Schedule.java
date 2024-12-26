@@ -5,10 +5,7 @@ import com.ll.timemateproject.domain.category.Category;
 import com.ll.timemateproject.domain.notification.Notification;
 import com.ll.timemateproject.domain.user.User;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Builder
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Schedule extends BaseEntity {
@@ -52,4 +50,20 @@ public class Schedule extends BaseEntity {
 
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
     private List<Notification> notifications = new ArrayList<>();
+
+    public void modify(Category category, String title, String location, String description, LocalDateTime startDatetime, LocalDateTime endDatetime) {
+        this.category = category;
+        this.title = title;
+        this.description = description;
+        this.startDatetime = startDatetime;
+        this.endDatetime = endDatetime;
+        this.location = location;
+    }
+
+    public void addNotifications(List<LocalDateTime> notificationTimes) {
+        notificationTimes.forEach(time -> {
+            Notification notification = Notification.of(this, time);
+            notifications.add(notification);
+        });
+    }
 }

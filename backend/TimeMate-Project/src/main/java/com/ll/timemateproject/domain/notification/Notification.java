@@ -3,15 +3,13 @@ package com.ll.timemateproject.domain.notification;
 import com.ll.timemateproject.domain.BaseEntity;
 import com.ll.timemateproject.domain.schedule.Schedule;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Builder
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Notification extends BaseEntity {
@@ -27,6 +25,19 @@ public class Notification extends BaseEntity {
     @Column(nullable = false)
     private LocalDateTime notificationTime;
 
+    @Builder.Default
     @Column(nullable = false)
     private Boolean isRead = false;
+
+
+    public static Notification of(Schedule schedule, LocalDateTime notificationTime) {
+        return Notification.builder()
+                .schedule(schedule)
+                .notificationTime(notificationTime)
+                .build();
+    }
+
+    public void read() {
+        isRead = true;
+    }
 }

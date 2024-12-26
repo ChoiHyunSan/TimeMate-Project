@@ -3,7 +3,6 @@ package com.ll.timemateproject.global.exception;
 import com.ll.timemateproject.api.v1.dto.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -26,4 +25,9 @@ public class GlobalExceptionHandler {
         return Result.error(401, "로그인 정보가 잘못되었습니다.");
     }
 
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(ForbiddenException.class)
+    public Result<Void> handleForbiddenException(ForbiddenException e) {
+        return Result.error(403, e.getMessage());
+    }
 }

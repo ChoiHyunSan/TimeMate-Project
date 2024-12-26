@@ -3,10 +3,7 @@ package com.ll.timemateproject.domain.category;
 import com.ll.timemateproject.domain.BaseEntity;
 import com.ll.timemateproject.domain.schedule.Schedule;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.List;
 @Entity
 @Builder
 @AllArgsConstructor
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Category extends BaseEntity {
 
@@ -27,6 +25,19 @@ public class Category extends BaseEntity {
     @Column(nullable = false, length = 7)
     private String color;
 
+    @Builder.Default
     @OneToMany(mappedBy = "category")
     private List<Schedule> schedules = new ArrayList<>();
+
+    public static Category of(String name, String color) {
+        return Category.builder()
+                .name(name)
+                .color(color)
+                .build();
+    }
+
+    public void modify(String name, String color) {
+        this.name = name;
+        this.color = color;
+    }
 }
