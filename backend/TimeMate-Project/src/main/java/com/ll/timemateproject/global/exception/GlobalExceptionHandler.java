@@ -30,4 +30,10 @@ public class GlobalExceptionHandler {
     public Result<Void> handleForbiddenException(ForbiddenException e) {
         return Result.error(403, e.getMessage());
     }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(CannotDeleteException.class)
+    public Result<Void> handleCannotDeleteException(CannotDeleteException e) {
+        return Result.error(409, e.getMessage());
+    }
 }

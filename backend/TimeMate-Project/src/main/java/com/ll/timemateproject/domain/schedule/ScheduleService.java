@@ -12,10 +12,12 @@ import com.ll.timemateproject.global.exception.ForbiddenException;
 import com.ll.timemateproject.global.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ScheduleService {
@@ -29,10 +31,12 @@ public class ScheduleService {
     public List<ScheduleListResponse> getScheduleList(String username, ScheduleListRequest request) {
         // TODO : 예외 처리
 
-        return scheduleQueryRepository.getScheduleListByDateAndCategory(username,
+        List<ScheduleListResponse> scheduleListByDateAndCategory = scheduleQueryRepository.getScheduleListByDateAndCategory(username,
                 request.getStartDate(),
                 request.getEndDate(),
                 request.getCategoryId());
+        log.info(String.valueOf(scheduleListByDateAndCategory.size()));
+        return scheduleListByDateAndCategory;
     }
 
     @Transactional

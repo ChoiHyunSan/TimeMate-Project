@@ -4,6 +4,7 @@ import com.ll.timemateproject.api.v1.dto.response.schedule.ScheduleListResponse;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 import static com.ll.timemateproject.domain.schedule.QSchedule.schedule;
 
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class ScheduleQueryRepository {
@@ -22,8 +24,7 @@ public class ScheduleQueryRepository {
         return queryFactory.selectFrom(schedule)
                 .leftJoin(schedule.category).fetchJoin()
                 .leftJoin(schedule.user).fetchJoin()
-                .where(usernameEqual(username).and(containsDate(startDate, endDate)))
-                .where(categoryEqual(categoryId))
+                .where(usernameEqual(username).and(containsDate(startDate, endDate)).and(categoryEqual(categoryId)))
                 .fetch()
                 .stream()
                 .map(ScheduleListResponse::of)

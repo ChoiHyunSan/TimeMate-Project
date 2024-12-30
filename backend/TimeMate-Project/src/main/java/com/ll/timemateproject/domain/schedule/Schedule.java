@@ -61,6 +61,9 @@ public class Schedule extends BaseEntity {
     }
 
     public void addNotifications(List<LocalDateTime> notificationTimes) {
+        if (this.notifications == null) {
+            this.notifications = new ArrayList<>();
+        }
         notificationTimes.forEach(time -> {
             Notification notification = Notification.of(this, time);
             notifications.add(notification);

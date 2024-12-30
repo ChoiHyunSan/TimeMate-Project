@@ -2,9 +2,11 @@ package com.ll.timemateproject.domain.category;
 
 import com.ll.timemateproject.api.v1.dto.request.category.CategoryCreateRequest;
 import com.ll.timemateproject.api.v1.dto.response.category.CategoryListResponse;
+import com.ll.timemateproject.global.exception.CannotDeleteException;
 import com.ll.timemateproject.global.exception.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,6 +37,11 @@ public class CategoryService {
 
     @Transactional
     public void deleteCategory(Long id) {
-        categoryRepository.deleteById(id);
+        try {
+            categoryRepository.deleteById(id);
+            categoryRepository.flush();
+        }catch (DataIntegrityViolationException e) {
+            throw new CannotDeleteException("Cannot delete category");
+        }
     }
 }

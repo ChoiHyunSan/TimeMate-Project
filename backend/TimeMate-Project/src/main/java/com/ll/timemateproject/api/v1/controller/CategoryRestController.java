@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/api/v1/categories")
 public class CategoryRestController {
 
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
     @GetMapping
     public Result<List<CategoryListResponse>> getCategoryList(){
